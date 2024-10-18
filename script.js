@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
+    const homeSection = document.getElementById('home');
     const loginBtn = document.getElementById('login-btn');
     const registerBtn = document.getElementById('register-btn');
+    const logoutBtn = document.getElementById('logout-btn');
 
     // Mostrar formulario de registro
     document.getElementById('show-register').addEventListener('click', () => {
@@ -50,10 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const user = users.find(user => user.email === email && user.password === password);
 
         if (user) {
-            alert(`¡Bienvenido, ${user.name}! 🎉`);
-            // Aquí podrías redirigir al usuario a una página de inicio
+            document.getElementById('user-name').innerText = user.name;
+            loginForm.classList.add('hidden');
+            homeSection.classList.remove('hidden');
         } else {
             document.getElementById('login-message').innerText = 'Correo o contraseña incorrectos.';
         }
+    });
+
+    // Manejar cierre de sesión
+    logoutBtn.addEventListener('click', () => {
+        homeSection.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+        document.getElementById('login-message').innerText = '';
+        document.getElementById('register-message').innerText = '';
+        document.getElementById('login-email').value = '';
+        document.getElementById('login-password').value = '';
     });
 });
